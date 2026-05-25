@@ -66,17 +66,84 @@ margin-bottom:20px;
 <div class="content">
 
 <div class="card">
-<h1>Dashboard</h1>
-<p>Selamat datang bro 🚀</p>
+<div class="card">
+
+<h2>Produk</h2>
+
+<input
+type="text"
+id="productName"
+placeholder="Nama produk"
+style="width:100%;padding:10px;margin:10px 0;"
+>
+
+<button onclick="saveProduct()">
+Simpan Produk
+</button>
+
+<div id="productList"></div>
+
 </div>
 
-<div class="card">
-Total Leads: 0
+<script>
+
+let products = JSON.parse(
+localStorage.getItem("products") || "[]"
+);
+
+renderProducts();
+
+function saveProduct(){
+
+const name =
+document.getElementById(
+"productName"
+).value;
+
+if(!name) return;
+
+products.push({
+id:Date.now(),
+name
+});
+
+localStorage.setItem(
+"products",
+JSON.stringify(products)
+);
+
+document.getElementById(
+"productName"
+).value="";
+
+renderProducts();
+
+}
+
+function renderProducts(){
+
+document.getElementById(
+"productList"
+).innerHTML=
+
+products.map(p=>`
+
+<div style="
+padding:10px;
+border:1px solid #ddd;
+margin-top:10px;
+border-radius:8px;
+">
+
+${p.name}
+
 </div>
 
-<div class="card">
-WhatsApp Click: 0
-</div>
+`).join("");
+
+}
+
+</script>
 
 </div>
 

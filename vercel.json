@@ -2,11 +2,11 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/dashboard", "destination": "/index.html" },
-    { "source": "/products", "destination": "/index.html" },
-    { "source": "/cs", "destination": "/index.html" },
-    { "source": "/form-generator", "destination": "/index.html" },
-    { "source": "/leads", "destination": "/index.html" },
-    { "source": "/analytics", "destination": "/index.html" },
-    { "source": "/settings", "destination": "/index.html" }
+    { "source": "/products", "destination": "/products.html" },
+    { "source": "/cs", "destination": "/cs.html" },
+    { "source": "/form-generator", "destination": "/embed.html" },
+    { "source": "/leads", "destination": "/leads.html" },
+    { "source": "/analytics", "destination": "/analytics.html" },
+    { "source": "/settings", "destination": "/settings.html" }
   ]
 }

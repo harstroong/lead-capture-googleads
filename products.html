@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Produk</title>
+<style>
+body{
+font-family:Arial;
+padding:30px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+padding:10px 20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Produk</h1>
+
+<input
+id="productName"
+placeholder="Nama produk"
+>
+
+<button onclick="saveProduct()">
+Simpan Produk
+</button>
+
+<div id="productList"></div>
+
+<script>
+
+let products=JSON.parse(
+localStorage.getItem("products")||"[]"
+);
+
+render();
+
+function saveProduct(){
+
+const name=
+document.getElementById(
+"productName"
+).value;
+
+if(!name)return;
+
+products.push(name);
+
+localStorage.setItem(
+"products",
+JSON.stringify(products)
+);
+
+render();
+
+}
+
+function render(){
+
+document.getElementById(
+"productList"
+).innerHTML=
+
+products.map(x=>`
+<p>${x}</p>
+`).join("");
+
+}
+
+</script>
+
+</body>
+</html>

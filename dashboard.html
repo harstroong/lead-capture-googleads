@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Dashboard CS untuk mengelola lead dari landing page Google Ads."
+    />
+    <title>Dashboard CS | Lead Capture</title>
+    <link rel="preconnect" href="https://www.gstatic.com" />
+    <link rel="stylesheet" href="./style.css?v=embed-generator" />
+    <script type="module" src="./gtm.js"></script>
+  </head>
+  <body class="dashboard-body">
+    <main class="dashboard-shell">
+      <section id="authView" class="auth-card" aria-labelledby="login-title">
+        <div class="panel-header">
+          <p class="panel-label">Dashboard CS</p>
+          <h1 id="login-title" class="auth-title">Login akun CS</h1>
+        </div>
+
+        <form id="loginForm" class="lead-form" novalidate>
+          <div class="field-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="cs@email.com"
+              autocomplete="email"
+              aria-describedby="authMessage"
+              required
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Masukkan password"
+              autocomplete="current-password"
+              aria-describedby="authMessage"
+              required
+            />
+          </div>
+
+          <p id="authMessage" class="form-message" role="status" aria-live="polite"></p>
+
+          <button id="loginButton" class="submit-button" type="submit">
+            <span class="button-text">Login</span>
+            <span class="button-loader" aria-hidden="true"></span>
+          </button>
+        </form>
+      </section>
+
+      <section id="dashboardView" class="dashboard-view" aria-labelledby="dashboard-title" hidden>
+        <header class="dashboard-header">
+          <div>
+            <p class="panel-label">Lead Capture</p>
+            <h1 id="dashboard-title" class="dashboard-title">Dashboard CS</h1>
+            <p id="userEmail" class="dashboard-subtitle"></p>
+          </div>
+
+          <div class="dashboard-actions">
+            <button id="generatorMenuButton" class="secondary-button" type="button" hidden>
+              Form Generator
+            </button>
+            <button id="logoutButton" class="secondary-button" type="button">Logout</button>
+          </div>
+        </header>
+
+        <section id="formGeneratorPanel" class="generator-card" aria-labelledby="generator-title" hidden>
+          <div>
+            <p class="panel-label">Form Generator</p>
+            <h2 id="generator-title" class="generator-title">Generate Embed Form</h2>
+          </div>
+
+          <form id="formGeneratorForm" class="generator-form" novalidate>
+            <div class="field-group">
+              <label for="formName">Nama Form</label>
+              <input
+                type="text"
+                id="formName"
+                name="formName"
+                placeholder="Contoh: Landing Promo Mei"
+                aria-describedby="generatorMessage"
+                required
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="generatorCsSelect">Pilih CS</label>
+              <select id="generatorCsSelect" name="generatorCsSelect" required></select>
+            </div>
+
+            <div class="field-group">
+              <label for="generatorWhatsappSelect">Pilih nomor WhatsApp CS</label>
+              <select
+                id="generatorWhatsappSelect"
+                name="generatorWhatsappSelect"
+                required
+              ></select>
+            </div>
+
+            <p
+              id="generatorMessage"
+              class="form-message"
+              role="status"
+              aria-live="polite"
+            ></p>
+
+            <button id="generateEmbedButton" class="submit-button" type="submit">
+              Generate
+            </button>
+          </form>
+
+          <div class="embed-output-group">
+            <label for="embedCodeOutput">Kode Embed HTML</label>
+            <textarea
+              id="embedCodeOutput"
+              class="embed-output"
+              rows="7"
+              readonly
+              placeholder="Kode embed akan muncul di sini setelah Generate."
+            ></textarea>
+          </div>
+        </section>
+
+        <div class="stats-row" aria-label="Ringkasan lead">
+          <div class="stat-card">
+            <span>Total Lead</span>
+            <strong id="totalLeads">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Follow Up</span>
+            <strong id="followUpLeads">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Closing</span>
+            <strong id="closingLeads">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Cancel</span>
+            <strong id="cancelLeads">0</strong>
+          </div>
+        </div>
+
+        <p id="dashboardMessage" class="form-message" role="status" aria-live="polite"></p>
+
+        <div class="table-card">
+          <div class="table-scroll">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Nama</th>
+                  <th>WhatsApp</th>
+                  <th>Tanggal</th>
+                  <th>CS</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="leadsTableBody"></tbody>
+            </table>
+          </div>
+
+          <div id="emptyState" class="empty-state" hidden>
+            Belum ada data lead.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./dashboard.js"></script>
+  </body>
+</html>

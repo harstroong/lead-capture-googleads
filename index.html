@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Landing page lead capture modern untuk kampanye Google Ads dengan integrasi Firebase Firestore."
+    />
+    <title>Lead Capture Google Ads</title>
+    <link rel="preconnect" href="https://www.gstatic.com" />
+    <link rel="stylesheet" href="./style.css?v=form-title" />
+    <script type="module" src="./gtm.js"></script>
+  </head>
+  <body>
+    <main class="page-shell form-only-shell">
+      <section class="lead-panel form-only-card" aria-labelledby="form-title">
+        <div class="panel-header form-title-header">
+          <h1 id="form-title" class="form-title">
+            Silahkan Isi Nama &amp; No WhatsApp dibawah Agar Terhubung dengan CS kami :
+          </h1>
+        </div>
+
+        <form id="leadForm" class="lead-form" novalidate>
+          <div class="field-group">
+            <label for="nama">Nama</label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              placeholder="Masukkan nama lengkap"
+              autocomplete="name"
+              aria-describedby="formMessage"
+              required
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="whatsapp">No WhatsApp</label>
+            <input
+              type="tel"
+              id="whatsapp"
+              name="whatsapp"
+              placeholder="Contoh: 6281234567890"
+              autocomplete="tel"
+              inputmode="tel"
+              aria-describedby="formMessage"
+              required
+            />
+          </div>
+
+          <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+
+          <button id="submitButton" class="submit-button" type="submit">
+            <span class="button-text">Beli Sekarang</span>
+            <span class="button-loader" aria-hidden="true"></span>
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

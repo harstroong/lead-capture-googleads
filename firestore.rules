@@ -1,0 +1,63 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userRole() {
+      return isSignedIn()
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : "";
+    }
+
+    function isAdmin() {
+      return isSignedIn() && userRole() == "admin";
+    }
+
+    function userCsId() {
+      return isSignedIn()
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.csId
+        : "";
+    }
+
+    function isAssignedCs() {
+      return isSignedIn() && resource.data.csId == userCsId();
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    match /cs/{csId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /leads/{leadId} {
+      allow create: if true;
+      allow read: if isAdmin() || isAssignedCs();
+      allow update: if isAdmin() || (
+        isAssignedCs() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(["status"])
+      );
+      allow delete: if isAdmin();
+    }
+
+    match /settings/csRoundRobin {
+      allow read, write: if true;
+    }
+
+    match /settings/tracking {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

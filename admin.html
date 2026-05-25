@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Admin panel untuk mengelola produk, CS, embed form, dan lead."
+    />
+    <title>Admin | Lead Capture</title>
+    <link rel="preconnect" href="https://www.gstatic.com" />
+    <link rel="stylesheet" href="./style.css?v=admin-page" />
+    <script type="module" src="./gtm.js"></script>
+  </head>
+  <body class="dashboard-body">
+    <main class="dashboard-shell">
+      <section id="adminAuthView" class="auth-card" aria-labelledby="admin-login-title">
+        <div class="panel-header">
+          <p class="panel-label">Admin</p>
+          <h1 id="admin-login-title" class="auth-title">Login admin</h1>
+        </div>
+
+        <form id="adminLoginForm" class="lead-form" novalidate>
+          <div class="field-group">
+            <label for="adminEmail">Email</label>
+            <input
+              type="email"
+              id="adminEmail"
+              placeholder="admin@email.com"
+              autocomplete="email"
+              aria-describedby="adminAuthMessage"
+              required
+            />
+          </div>
+
+          <div class="field-group">
+            <label for="adminPassword">Password</label>
+            <input
+              type="password"
+              id="adminPassword"
+              placeholder="Masukkan password"
+              autocomplete="current-password"
+              aria-describedby="adminAuthMessage"
+              required
+            />
+          </div>
+
+          <p id="adminAuthMessage" class="form-message" role="status" aria-live="polite"></p>
+
+          <button id="adminLoginButton" class="submit-button" type="submit">
+            <span class="button-text">Login</span>
+            <span class="button-loader" aria-hidden="true"></span>
+          </button>
+        </form>
+      </section>
+
+      <section id="adminView" class="dashboard-view" aria-labelledby="admin-title" hidden>
+        <header class="dashboard-header">
+          <div>
+            <p class="panel-label">Admin Panel</p>
+            <h1 id="admin-title" class="dashboard-title">Admin Lead Capture</h1>
+            <p id="adminUserEmail" class="dashboard-subtitle"></p>
+          </div>
+
+          <button id="adminLogoutButton" class="secondary-button" type="button">Logout</button>
+        </header>
+
+        <div class="stats-row admin-stats-row" aria-label="Statistik semua lead">
+          <div class="stat-card">
+            <span>Total Lead</span>
+            <strong id="adminTotalLeads">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Follow Up</span>
+            <strong id="adminFollowUpLeads">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Closing</span>
+            <strong id="adminClosingLeads">0</strong>
+          </div>
+        </div>
+
+        <section class="generator-card" aria-labelledby="tracking-title">
+          <div class="section-title-row">
+            <div>
+              <p class="panel-label">Pengaturan → Tracking</p>
+              <h2 id="tracking-title" class="generator-title">Tracking</h2>
+            </div>
+            <span id="gtmStatus" class="tracking-status tracking-inactive">
+              GTM Belum diisi
+            </span>
+          </div>
+
+          <form id="trackingForm" class="generator-form" novalidate>
+            <div class="field-group">
+              <label for="trackingGtmId">GTM ID</label>
+              <input
+                type="text"
+                id="trackingGtmId"
+                placeholder="GTM-ABC123"
+                aria-describedby="trackingMessage"
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="trackingGoogleAdsId">Google Ads Conversion ID</label>
+              <input
+                type="text"
+                id="trackingGoogleAdsId"
+                placeholder="AW-123456789"
+                aria-describedby="trackingMessage"
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="trackingConversionLabel">Google Ads Conversion Label</label>
+              <input
+                type="text"
+                id="trackingConversionLabel"
+                placeholder="AbCdEfGhIj"
+                aria-describedby="trackingMessage"
+              />
+            </div>
+
+            <p
+              id="trackingMessage"
+              class="form-message"
+              role="status"
+              aria-live="polite"
+            ></p>
+
+            <div class="form-action-row">
+              <button id="saveTrackingButton" class="submit-button" type="submit">
+                Simpan Tracking
+              </button>
+              <button id="testGtmButton" class="secondary-button" type="button">
+                Test GTM
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="admin-grid">
+          <article class="generator-card">
+            <div>
+              <p class="panel-label">Produk</p>
+              <h2 class="generator-title">Tambah Produk</h2>
+            </div>
+
+            <form id="productForm" class="lead-form" novalidate>
+              <input id="productEditId" type="hidden" />
+              <div class="field-group">
+                <label for="productName">Nama Produk</label>
+                <input
+                  type="text"
+                  id="productName"
+                  placeholder="Contoh: Paket Promo A"
+                  aria-describedby="productMessage"
+                  required
+                />
+              </div>
+
+              <div class="field-group">
+                <label for="productCsSelect">Pilih CS</label>
+                <select id="productCsSelect" aria-describedby="productMessage" required></select>
+              </div>
+
+              <p id="productMessage" class="form-message" role="status" aria-live="polite"></p>
+
+              <div class="form-action-row">
+                <button id="saveProductButton" class="submit-button" type="submit">
+                  Simpan Produk
+                </button>
+                <button id="resetProductButton" class="secondary-button" type="button">
+                  Reset
+                </button>
+              </div>
+            </form>
+          </article>
+
+          <article class="generator-card">
+            <div>
+              <p class="panel-label">CS</p>
+              <h2 class="generator-title">Tambah / Edit CS</h2>
+            </div>
+
+            <form id="csForm" class="lead-form" novalidate>
+              <input id="csEditId" type="hidden" />
+              <div class="field-group">
+                <label for="csName">Nama CS</label>
+                <input
+                  type="text"
+                  id="csName"
+                  placeholder="Nama CS"
+                  aria-describedby="csMessage"
+                  required
+                />
+              </div>
+
+              <div class="field-group">
+                <label for="csWhatsapp">No WhatsApp CS</label>
+                <input
+                  type="tel"
+                  id="csWhatsapp"
+                  placeholder="628xxxxxxxxxx"
+                  aria-describedby="csMessage"
+                  required
+                />
+              </div>
+
+              <div class="field-group">
+                <label for="csEmail">Email Login CS</label>
+                <input
+                  type="email"
+                  id="csEmail"
+                  placeholder="cs@email.com"
+                  aria-describedby="csMessage"
+                  required
+                />
+              </div>
+
+              <p id="csMessage" class="form-message" role="status" aria-live="polite"></p>
+
+              <div class="form-action-row">
+                <button id="saveCsButton" class="submit-button" type="submit">
+                  Simpan CS
+                </button>
+                <button id="resetCsButton" class="secondary-button" type="button">
+                  Reset
+                </button>
+              </div>
+            </form>
+          </article>
+        </section>
+
+        <section class="generator-card">
+          <div>
+            <p class="panel-label">Form Generator</p>
+            <h2 class="generator-title">Generate Embed Form Otomatis</h2>
+          </div>
+
+          <form id="adminEmbedForm" class="generator-form" novalidate>
+            <div class="field-group">
+              <label for="embedProductSelect">Pilih Produk</label>
+              <select id="embedProductSelect" aria-describedby="adminEmbedMessage" required></select>
+            </div>
+
+            <p
+              id="adminEmbedMessage"
+              class="form-message"
+              role="status"
+              aria-live="polite"
+            ></p>
+
+            <button id="adminGenerateButton" class="submit-button" type="submit">
+              Generate
+            </button>
+          </form>
+
+          <div class="embed-output-group">
+            <label for="adminEmbedOutput">Kode Embed HTML</label>
+            <textarea
+              id="adminEmbedOutput"
+              class="embed-output"
+              rows="7"
+              readonly
+              placeholder="Kode embed produk akan muncul di sini."
+            ></textarea>
+          </div>
+        </section>
+
+        <section class="table-card">
+          <div class="admin-table-header">
+            <div>
+              <p class="panel-label">Produk</p>
+              <h2 class="generator-title">Daftar Produk</h2>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="leads-table admin-table">
+              <thead>
+                <tr>
+                  <th>Produk</th>
+                  <th>CS</th>
+                  <th>Embed</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody"></tbody>
+            </table>
+          </div>
+          <div id="productsEmptyState" class="empty-state" hidden>Belum ada produk.</div>
+        </section>
+
+        <section class="table-card">
+          <div class="admin-table-header">
+            <div>
+              <p class="panel-label">CS</p>
+              <h2 class="generator-title">Daftar CS</h2>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="leads-table admin-table">
+              <thead>
+                <tr>
+                  <th>CS ID</th>
+                  <th>Nama</th>
+                  <th>WhatsApp</th>
+                  <th>Email</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="csTableBody"></tbody>
+            </table>
+          </div>
+          <div id="csEmptyState" class="empty-state" hidden>Belum ada CS.</div>
+        </section>
+
+        <section class="table-card">
+          <div class="admin-table-header">
+            <div>
+              <p class="panel-label">Leads</p>
+              <h2 class="generator-title">Semua Lead Semua Produk</h2>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="leads-table">
+              <thead>
+                <tr>
+                  <th>Produk</th>
+                  <th>Nama</th>
+                  <th>WhatsApp</th>
+                  <th>Tanggal</th>
+                  <th>CS</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="adminLeadsTableBody"></tbody>
+            </table>
+          </div>
+          <div id="adminLeadsEmptyState" class="empty-state" hidden>
+            Belum ada lead.
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./admin.js"></script>
+  </body>
+</html>

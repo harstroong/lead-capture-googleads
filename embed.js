@@ -115,7 +115,26 @@ function buildLeadPayload(formData) {
 }
 
 function redirectToAssignedCs() {
-  const whatsappUrl = `https://wa.me/${selectedAssignment.csWhatsapp}`;
+  const nama = namaInput.value.trim();
+  const whatsapp = whatsappInput.value.trim();
+  const productName =
+    selectedAssignment.productNama || "Produk pilihan";
+
+  const pesan = `Selamat datang di Toko kami ${nama} ☺️
+
+Kami sudah terima pesanan anda dengan rincian sebagai berikut,
+
+Produk: ${productName}
+
+Dikirim ke:
+Nama: ${nama}
+No WA: ${whatsapp}
+Alamat:
+Kota:
+Kecamatan:`;
+
+  const whatsappUrl =
+    `https://wa.me/${selectedAssignment.csWhatsapp}?text=${encodeURIComponent(pesan)}`;
 
   pushGtmEvent({
     event: "whatsapp_click",
@@ -129,7 +148,6 @@ function redirectToAssignedCs() {
     window.location.href = whatsappUrl;
   }
 }
-
 async function loadProductAssignment(productId) {
   const productSnapshot = await getDoc(doc(db, PRODUCTS_COLLECTION, productId));
 
